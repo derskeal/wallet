@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import { Service } from '@tsed/di';
 import { PrismaClient } from '@prisma/client';
-import { Unauthorized } from '@tsed/exceptions';
+import { Conflict, Unauthorized } from '@tsed/exceptions';
 import jwt from 'jsonwebtoken';
 import { envs } from '../config/envs';
 
@@ -14,6 +14,14 @@ export class UserService {
   }
 
   async createUser(name: string, email: string, password: string): Promise<any> {
+
+    const userExists = await this.prismaClient.user.count({
+      where: {
+        email
+      }
+    });
+
+    if (userExists > 0) throw new Conflict('Email has been taken');
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
