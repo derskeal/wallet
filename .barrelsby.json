@@ -8,5 +8,6 @@
     "__mocks__",
     ".spec.ts"
   ],
-  "delete": true
+  "delete": true,
+  "singleQuotes": true
 }
