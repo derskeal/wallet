@@ -1,0 +1,28 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": ["@typescript-eslint"],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "env": {
+   "node": true,
+   "es6": true
+  },
+  "rules": {
+    "@typescript-eslint/no-inferrable-types": 0,
+    "@typescript-eslint/no-unused-vars": 2,
+    "@typescript-eslint/no-var-requires": 0,
+
+    "object-curly-spacing": ["error", "always"],
+    "space-before-function-paren": "off",
+    "no-useless-constructor": "warn",
+    "no-extra-semi": "error",
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"]
+  }
+}

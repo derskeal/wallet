@@ -1,0 +1,12 @@
+{
+  "directory": [
+    "./src/controllers/api",
+    "./src/controllers/web"
+  ],
+  "exclude": [
+    "__mock__",
+    "__mocks__",
+    ".spec.ts"
+  ],
+  "delete": true
+}

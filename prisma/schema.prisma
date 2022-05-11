@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TransactionStatus {
+  SUCCESS
+  PENDING
+  FAILED
+}
+
+enum TransactionType {
+  DEBIT
+  CREDIT
+  TRANSFER
+}
+
+enum TransactionSourceType {
+  FUNDING
+  WALLET
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  name     String
+  password String
+  Wallet   Wallet?
+}
+
+model Wallet {
+  id      Int  @id @default(autoincrement())
+  balance Int  @default(0)
+  user    User @relation(fields: [userId], references: [id])
+
+  userId      Int           @unique
+  Transaction Transaction[]
+}
+
+model TransactionSource {
+  id          Int                   @id @default(autoincrement())
+  type        TransactionSourceType
+  sourceId    String
+  Transaction Transaction?
+}
+
+model Transaction {
+  id     Int               @id @default(autoincrement())
+  amount Int
+  type   TransactionType
+  status TransactionStatus
+
+  source TransactionSource? @relation(fields: [transactionSourceId], references: [id]) // source is not quite the right name, because it serves to track the destination of debit transactions and the source/origin(from) of credit transactions
+
+  Wallet              Wallet? @relation(fields: [walletId], references: [id])
+  walletId            Int?
+  transactionSourceId Int     @unique
+}
