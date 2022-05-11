@@ -1,1 +1,1 @@
-web: yarn build && yarn prisma db push && yarn start:prod
+web: yarn install && yarn build && yarn prisma db push && yarn start:prod
