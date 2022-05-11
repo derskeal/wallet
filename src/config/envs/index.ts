@@ -1,7 +1,13 @@
 import dotenv from 'dotenv';
 
-const env = dotenv.config().parsed;
-if (!env) throw new Error('failed to parse env');
+let env;
+
+if (process.env.NODE_ENV !== 'staging' && process.env.NODE_ENV !== 'production') {
+  env = dotenv.config().parsed;
+  if (!env) throw new Error('failed to parse env');
+} else {
+  env = process.env;
+}
 
 export const envs = {
   ...process.env,

@@ -12,6 +12,9 @@
     "test:lint": "eslint '**/*.{ts,js}'",
     "test:lint:fix": "eslint '**/*.{ts,js}' --fix"
   },
+  "engines": {
+    "node": "14.x"
+  },
   "dependencies": {
     "@prisma/client": "^3.13.0",
     "@tsed/ajv": "^6.114.8",
