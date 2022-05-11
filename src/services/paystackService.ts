@@ -41,6 +41,7 @@ export class PaystackService {
   async verify(paymentReference: string): Promise<IPaymentVerification> {
     const url = this.baseUrl + `/transaction/verify/${paymentReference}`;
     try {
+      this.logger.info('Making Paystack verification request: ' + url);
       const response = await axios.get(
         url,
         {
@@ -49,6 +50,7 @@ export class PaystackService {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${envs.PAYSTACK_SECRET_KEY}`
           },
+          validateStatus: () => true,
         });
       this.logger.info(response);
 
